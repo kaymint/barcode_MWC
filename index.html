@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="themes/my-theme2.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="js/jquery.mobile-1.4.5.min.css">
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script src="cordova.js"></script>
+		<script type="text/javascript">
+
+		function addReading(){
+			cordova.plugins.barcodeScanner.scan(
+	      		function (result) {
+	      			$("#reading").val(result.text);
+		          // alert("We got a barcode\n" +
+		          //       "Result: " + result.text + "\n" +
+		          //       "Format: " + result.format + "\n" +
+		          //       "Cancelled: " + result.cancelled);
+		      }, 
+		      function (error) {
+		          alert("Scanning failed: " + error);
+		      }
+	   		);
+		}
+
+		</script>
+	</head>
+	<body>
+
+		<!-- First Page -->
+		<div data-role="page" id="addPage" data-theme="d">
+		<div data-role="header">
+			<!--Tool Bar --> 
+				<a href="#pageone" data-role="button" data-icon="home" class="ui-btn-left" >Home</a>
+				<h1>Food Barcode</h1>
+				<a href="#pagetwo" data-role="button" data-icon="search"  class="ui-btn-right">Search</a>
+
+				<div data-role="navbar">
+						<ul>
+							<li>
+								<a href="#pageone"  data-icon="home" data-iconpos="top" data-transition="pop">Home</a>
+							</li>
+							<li>
+								<a href="#addPage"  data-transition="pop" class="ui-btn-active ui-state-persist" 
+								data-icon="plus" data-iconpos="top">Add</a>
+							</li>
+							<li>
+								<a href="#viewPage" data-transition="pop" data-icon="grid" data-iconpos="top">View</a>
+							</li>
+						</ul>
+				</div>
+		</div>
+		<div role="main" class="ui-content" >
+			<div data-role="content"> 
+			<h2>Add Food Reading</h2>
+
+
+			<!-- Add Form -->
+			<form method="post" action="meter_mini.php" data-theme="a">
+				<div data-role="fieldcontain">
+					<label for="reading">Value</label>
+					<input type="text" name="reading" id="reading" data-theme="a">
+			</form>
+			<input type="button" name="submit" value="scan" data-icon="checked"
+					onclick="addReading()">
+			<div id="results">
+			</div>
+		</div>
+		<div data-role="footer">
+			<a href="#" data-role="button" data-rel="back" data-icon="back">Go Back</a>
+			<h1> Nsu Pa app takes reading of water meters</h1>
+		</div>
+		</div>
+	</div>
+
+	</body>
+</html>
